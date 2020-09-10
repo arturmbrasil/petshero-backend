@@ -1,5 +1,4 @@
 import { getRepository } from 'typeorm';
-import { hash } from 'bcryptjs';
 
 import Address from '../models/Address';
 import User from '../models/User';
@@ -23,13 +22,12 @@ class CreateAddressService {
     city,
     uf,
     cep,
-  }: Request): Promise<User> {
+  }: Request): Promise<Address> {
     const addressesRepository = getRepository(Address);
     const usersRepository = getRepository(User);
 
     const checkUserAddress = await usersRepository.findOne({
       where: { id: user_id },
-      relations: ['address'],
     });
 
     if (!checkUserAddress) {
@@ -51,9 +49,11 @@ class CreateAddressService {
 
       checkUserAddress.address_id = address.id;
 
+      delete checkUserAddress.address;
+
       await usersRepository.save(checkUserAddress);
 
-      return checkUserAddress;
+      return address;
     }
 
     // se ja tem endereco da um update
@@ -78,7 +78,7 @@ class CreateAddressService {
 
     await usersRepository.save(checkUserAddress);
 
-    return checkUserAddress;
+    return userAddress;
   }
 }
 
