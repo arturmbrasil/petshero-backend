@@ -23,7 +23,10 @@ class UpdateProfileService {
   }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
-    const checkUser = await usersRepository.findOne(user_id);
+    const checkUser = await usersRepository.findOne({
+      where: { id: user_id },
+      relations: ['address'],
+    });
 
     if (!checkUser) {
       throw new Error('User not found.');

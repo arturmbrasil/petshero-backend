@@ -38,11 +38,6 @@ export default class CreateAddress1598486304859 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'complement',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

@@ -6,6 +6,7 @@ import uploadConfig from '../config/upload';
 
 import CreateUserService from '../services/CreateUserService';
 import UpdateUserAvatarService from '../services/UpdateUserAvatarService';
+import CreateAddressService from '../services/CreateAddressService';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
@@ -52,5 +53,29 @@ usersRouter.patch(
     }
   },
 );
+
+usersRouter.post('/address', ensureAuthenticated, async (request, response) => {
+  try {
+    const user_id = request.user.id;
+
+    const { street, number, neighborhood, city, uf, cep } = request.body;
+
+    const createAddress = new CreateAddressService();
+
+    const user = await createAddress.execute({
+      user_id,
+      street,
+      number,
+      neighborhood,
+      city,
+      uf,
+      cep,
+    });
+
+    return response.json(classToClass(user));
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
 
 export default usersRouter;

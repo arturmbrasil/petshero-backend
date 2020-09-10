@@ -30,7 +30,7 @@ class User {
   @Column()
   address_id: string;
 
-  @OneToOne(() => User) // 1 user tem apenas 1 endereco
+  @OneToOne(() => Address) // 1 user tem apenas 1 endereco
   @JoinColumn({ name: 'address_id' })
   address: Address;
 

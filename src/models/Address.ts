@@ -29,9 +29,6 @@ class Address {
   @Column()
   cep: string;
 
-  @Column()
-  complement: string;
-
   @CreateDateColumn()
   created_at: Date;
 
