@@ -1,4 +1,4 @@
-import { getRepository, Not } from 'typeorm';
+import { getRepository } from 'typeorm';
 
 import OngAnimal from '../models/OngAnimal';
 

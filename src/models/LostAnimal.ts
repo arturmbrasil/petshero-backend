@@ -9,19 +9,19 @@ import {
 } from 'typeorm';
 import { Expose } from 'class-transformer';
 
-import Ong from './User';
+import Owner from './User';
 
-@Entity('ong_animals')
-class OngAnimal {
+@Entity('lost_animals')
+class LostAnimal {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  ong_id: string;
+  owner_id: string;
 
-  @OneToOne(() => Ong) // 1 animal tem apenas 1 ong
-  @JoinColumn({ name: 'ong_id' })
-  ong: Ong;
+  @OneToOne(() => Owner) // 1 animal tem apenas 1 dono
+  @JoinColumn({ name: 'owner_id' })
+  owner: Owner;
 
   @Column()
   name: string;
@@ -42,10 +42,10 @@ class OngAnimal {
   breed: string;
 
   @Column()
-  adopted: boolean;
+  description: string;
 
   @Column()
-  description: string;
+  found: boolean;
 
   @Column()
   avatar: string;
@@ -65,4 +65,4 @@ class OngAnimal {
   }
 }
 
-export default OngAnimal;
+export default LostAnimal;
