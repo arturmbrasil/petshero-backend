@@ -52,7 +52,10 @@ class Campaign {
   @CreateDateColumn()
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    update: false,
+  })
   updated_at: Date;
 
   @Expose({ name: 'avatar_url' })
