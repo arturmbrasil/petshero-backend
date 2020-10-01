@@ -6,6 +6,7 @@ import profileRouter from './profile.routes';
 import ongsRouter from './ongs.routes';
 import lostAnimalsRouter from './lost-animals.routes';
 import campaignsRouter from './campaigns.routes';
+import paymentsRouter from './payments.routes';
 
 const routes = Router();
 
@@ -15,5 +16,7 @@ routes.use('/profile', profileRouter);
 routes.use('/ongs', ongsRouter);
 routes.use('/lost-animals', lostAnimalsRouter);
 routes.use('/campaigns', campaignsRouter);
+
+routes.use('/payments', paymentsRouter);
 
 export default routes;
