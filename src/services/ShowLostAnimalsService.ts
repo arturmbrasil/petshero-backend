@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { getRepository, Like } from 'typeorm';
 
 import LostAnimal from '../models/LostAnimal';
 
@@ -33,14 +33,15 @@ class ShowLostAnimalsService {
     if (owner_id) {
       animals = await lostAnimalsRepository.find({
         where: { owner_id },
-        relations: ['owner'],
+        relations: ['owner', 'owner.address'],
       });
     } else if (owner_name) {
       animals = await lostAnimalsRepository
         .createQueryBuilder('lost_animals')
         .innerJoinAndSelect('lost_animals.owner', 'owner')
-        .where('ong.id = lost_animals.owner_id')
-        .andWhere(`lost_animals.name ILIKE :owner_name`, {
+        .innerJoinAndSelect('owner.address', 'address')
+        // .where('ong.id = lost_animals.owner_id')
+        .where(`owner.name ILIKE :owner_name`, {
           owner_name: `%${owner_name}%`,
         })
         .getMany();
@@ -48,44 +49,45 @@ class ShowLostAnimalsService {
       animals = await lostAnimalsRepository
         .createQueryBuilder('lost_animals')
         .innerJoinAndSelect('lost_animals.owner', 'owner')
-        .where('ong.id = lost_animals.owner_id')
-        .andWhere(`lost_animals.name ILIKE :animal_name`, {
+        .innerJoinAndSelect('owner.address', 'address')
+        // .where('ong.id = lost_animals.owner_id')
+        .where(`lost_animals.name ILIKE :animal_name`, {
           animal_name: `%${animal_name}%`,
         })
         .getMany();
     } else if (age) {
       animals = await lostAnimalsRepository.find({
         where: { age },
-        relations: ['owner'],
+        relations: ['owner', 'owner.address'],
       });
     } else if (gender) {
       animals = await lostAnimalsRepository.find({
         where: { gender },
-        relations: ['owner'],
+        relations: ['owner', 'owner.address'],
       });
     } else if (size) {
       animals = await lostAnimalsRepository.find({
         where: { size },
-        relations: ['owner'],
+        relations: ['owner', 'owner.address'],
       });
     } else if (species) {
       animals = await lostAnimalsRepository.find({
         where: { species },
-        relations: ['owner'],
+        relations: ['owner', 'owner.address'],
       });
     } else if (breed) {
       animals = await lostAnimalsRepository.find({
         where: { breed },
-        relations: ['owner'],
+        relations: ['owner', 'owner.address'],
       });
     } else if (found) {
       animals = await lostAnimalsRepository.find({
         where: { found },
-        relations: ['owner'],
+        relations: ['owner', 'owner.address'],
       });
     } else {
       animals = await lostAnimalsRepository.find({
-        relations: ['owner'],
+        relations: ['owner', 'owner.address'],
       });
     }
 

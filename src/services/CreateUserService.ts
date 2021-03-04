@@ -37,6 +37,7 @@ class CreateUserService {
       password: hashedPassword,
       whatsapp,
       is_ong,
+      avatar: 'default.jpeg',
     });
 
     await usersRepository.save(user);
