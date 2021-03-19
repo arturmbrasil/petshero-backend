@@ -118,6 +118,7 @@ lostAnimalsRouter.get('/', async (request, response) => {
   try {
     // const user_id = request.user.id; // id do user logado
 
+    let id = '';
     let owner_id = '';
     let owner_name = '';
     let animal_name = '';
@@ -129,6 +130,7 @@ lostAnimalsRouter.get('/', async (request, response) => {
     let found = null;
 
     if (request.query) {
+      if (request.query.id) id = (request.query as any).id;
       if (request.query.owner_id) owner_id = (request.query as any).owner_id;
       if (request.query.owner_name)
         owner_name = (request.query as any).owner_name;
@@ -145,6 +147,7 @@ lostAnimalsRouter.get('/', async (request, response) => {
     const showAnimals = new ShowLostAnimalsService();
 
     const animals = await showAnimals.execute({
+      id,
       owner_id,
       owner_name,
       animal_name,

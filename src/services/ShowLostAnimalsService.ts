@@ -3,6 +3,7 @@ import { getRepository, Like } from 'typeorm';
 import LostAnimal from '../models/LostAnimal';
 
 interface Request {
+  id?: string | null;
   owner_id?: string | null;
   owner_name?: string | null;
   animal_name?: string | null;
@@ -16,6 +17,7 @@ interface Request {
 
 class ShowLostAnimalsService {
   public async execute({
+    id,
     owner_id,
     owner_name,
     animal_name,
@@ -58,6 +60,12 @@ class ShowLostAnimalsService {
         })
         .orderBy(`updated_at`, `DESC`)
         .getMany();
+    } else if (id) {
+      animals = await lostAnimalsRepository.find({
+        where: { id },
+        relations: ['owner', 'owner.address'],
+        order: { updated_at: 'DESC' },
+      });
     } else if (age) {
       animals = await lostAnimalsRepository.find({
         where: { age },
