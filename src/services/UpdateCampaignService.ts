@@ -61,7 +61,7 @@ class UpdateCampaignService {
     if (target_value) checkCampaign.target_value = target_value;
     if (received_value) checkCampaign.received_value = received_value;
     if (title) checkCampaign.title = title;
-    if (activated) checkCampaign.activated = activated;
+    if (activated !== undefined) checkCampaign.activated = activated;
     if (description) checkCampaign.description = description;
 
     return campaignRepository.save(checkCampaign);
