@@ -49,7 +49,7 @@ class UpdateLostAnimalService {
     if (size) checkAnimal.size = size;
     if (species) checkAnimal.species = species;
     if (breed) checkAnimal.breed = breed;
-    if (found) checkAnimal.found = found;
+    if (found !== undefined) checkAnimal.found = found;
     if (description) checkAnimal.description = description;
 
     return lostAnimalsRepository.save(checkAnimal);
