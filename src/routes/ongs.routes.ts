@@ -140,6 +140,7 @@ ongsRouter.get('/animals', async (request, response) => {
   try {
     // const user_id = request.user.id; // id do user logado
 
+    let id = '';
     let ong_id = '';
     let ong_name = '';
     let animal_name = '';
@@ -151,6 +152,7 @@ ongsRouter.get('/animals', async (request, response) => {
     let adopted = null;
 
     if (request.query) {
+      if (request.query.id) id = (request.query as any).id;
       if (request.query.ong_id) ong_id = (request.query as any).ong_id;
       if (request.query.ong_name) ong_name = (request.query as any).ong_name;
       if (request.query.animal_name)
@@ -166,6 +168,7 @@ ongsRouter.get('/animals', async (request, response) => {
     const showAnimals = new ShowOngAnimalsService();
 
     const animals = await showAnimals.execute({
+      id,
       ong_id,
       ong_name,
       animal_name,
