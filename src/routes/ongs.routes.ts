@@ -21,17 +21,20 @@ ongsRouter.use(ensureAuthenticated);
 // LISTA ONGS (FILTRO CIDADE OU UF)
 ongsRouter.get('/', async (request, response) => {
   try {
-    const user_id = request.user.id;
+    // const user_id = request.user.id;
     let city = '';
     let uf = '';
+    let name = '';
     if (request.query) {
       if (request.query.city) city = (request.query as any).city;
       if (request.query.uf) uf = (request.query as any).uf;
+      if (request.query.name) name = (request.query as any).name;
     }
 
     const showOngs = new ShowOngsService();
 
-    const ongs = await showOngs.execute({ user_id, city, uf });
+    const ongs = await showOngs.execute({ city, uf, name });
+    // const ongs = await showOngs.execute({ user_id, city, uf, name });
 
     return response.json(classToClass(ongs));
   } catch (err) {
