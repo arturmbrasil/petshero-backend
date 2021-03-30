@@ -49,7 +49,7 @@ class UpdateOngAnimalService {
     if (size) checkAnimal.size = size;
     if (species) checkAnimal.species = species;
     if (breed) checkAnimal.breed = breed;
-    if (adopted) checkAnimal.adopted = adopted;
+    if (adopted !== undefined) checkAnimal.adopted = adopted;
     if (description) checkAnimal.description = description;
 
     return ongAnimalsRepository.save(checkAnimal);
