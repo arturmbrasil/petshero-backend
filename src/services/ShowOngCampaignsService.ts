@@ -26,11 +26,13 @@ class ShowOngCampaignsService {
       campaigns = await campaignRepository.find({
         where: { ong_id },
         relations: ['ong', 'ongAnimal'],
+        order: { updated_at: 'DESC' },
       });
     } else if (animal_id) {
       campaigns = await campaignRepository.find({
         where: { animal_id },
         relations: ['ong', 'ongAnimal'],
+        order: { updated_at: 'DESC' },
       });
     } else if (ong_name) {
       campaigns = await campaignRepository
@@ -41,6 +43,7 @@ class ShowOngCampaignsService {
         .andWhere(`ong.name ILIKE :ong_name`, {
           ong_name: `%${ong_name}%`,
         })
+        .orderBy(`updated_at`, `DESC`)
         .getMany();
     } else if (animal_name) {
       campaigns = await campaignRepository
@@ -51,6 +54,7 @@ class ShowOngCampaignsService {
         .andWhere(`ongAnimal.name ILIKE :animal_name`, {
           animal_name: `%${animal_name}%`,
         })
+        .orderBy(`updated_at`, `DESC`)
         .getMany();
     } else if (title) {
       campaigns = await campaignRepository
@@ -60,10 +64,12 @@ class ShowOngCampaignsService {
         .andWhere(`title ILIKE :title`, {
           title: `%${title}%`,
         })
+        .orderBy(`updated_at`, `DESC`)
         .getMany();
     } else {
       campaigns = await campaignRepository.find({
         relations: ['ong', 'ongAnimal'],
+        order: { updated_at: 'DESC' },
       });
     }
 
