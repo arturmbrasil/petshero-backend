@@ -6,7 +6,7 @@ import OngAnimal from '../models/OngAnimal';
 interface Request {
   campaign_id: string;
   ong_id: string;
-  animal_id?: string;
+  animal_id?: string | null;
   target_value?: number;
   received_value?: number;
   title?: string;
@@ -57,6 +57,10 @@ class UpdateCampaignService {
       if (animal_id) checkCampaign.ongAnimal = checkAnimal;
     }
 
+    if (animal_id === null) {
+      checkCampaign.animal_id = null;
+      delete checkCampaign?.ongAnimal;
+    }
     if (animal_id) checkCampaign.animal_id = animal_id;
     if (target_value) checkCampaign.target_value = target_value;
     if (received_value) checkCampaign.received_value = received_value;

@@ -25,11 +25,11 @@ class Campaign {
   ong: Ong;
 
   @Column()
-  animal_id: string;
+  animal_id: string | null;
 
   @OneToOne(() => OngAnimal) // 1 campanha tem apenas 1 animal
   @JoinColumn({ name: 'animal_id' })
-  ongAnimal: OngAnimal;
+  ongAnimal?: OngAnimal;
 
   @Column()
   target_value: number;
