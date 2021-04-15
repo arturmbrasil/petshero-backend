@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm';
 import Campaign from '../models/Campaign';
 
 interface Request {
+  id?: string | null;
   ong_id?: string | null;
   animal_id?: string | null;
   ong_name?: string | null;
@@ -12,6 +13,7 @@ interface Request {
 
 class ShowOngCampaignsService {
   public async execute({
+    id,
     ong_id,
     animal_id,
     ong_name,
@@ -22,7 +24,13 @@ class ShowOngCampaignsService {
 
     let campaigns = null;
 
-    if (ong_id) {
+    if (id) {
+      campaigns = await campaignRepository.find({
+        where: { id },
+        relations: ['ong', 'ongAnimal'],
+        order: { updated_at: 'DESC' },
+      });
+    } else if (ong_id) {
       campaigns = await campaignRepository.find({
         where: { ong_id },
         relations: ['ong', 'ongAnimal'],

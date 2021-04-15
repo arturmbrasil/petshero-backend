@@ -110,6 +110,7 @@ campaignsRouter.get('/', async (request, response) => {
   try {
     // const user_id = request.user.id; // id do user logado
 
+    let id = '';
     let ong_id = '';
     let animal_id = '';
     let ong_name = '';
@@ -117,6 +118,7 @@ campaignsRouter.get('/', async (request, response) => {
     let title = '';
 
     if (request.query) {
+      if (request.query.id) id = (request.query as any).id;
       if (request.query.ong_id) ong_id = (request.query as any).ong_id;
       if (request.query.animal_id) animal_id = (request.query as any).animal_id;
       if (request.query.ong_name) ong_name = (request.query as any).ong_name;
@@ -128,6 +130,7 @@ campaignsRouter.get('/', async (request, response) => {
     const showCampaigns = new ShowOngCampaignsService();
 
     const campaigns = await showCampaigns.execute({
+      id,
       ong_id,
       animal_id,
       ong_name,
