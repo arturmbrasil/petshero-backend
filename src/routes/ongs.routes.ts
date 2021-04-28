@@ -25,15 +25,17 @@ ongsRouter.get('/', async (request, response) => {
     let city = '';
     let uf = '';
     let name = '';
+    let id = '';
     if (request.query) {
       if (request.query.city) city = (request.query as any).city;
       if (request.query.uf) uf = (request.query as any).uf;
       if (request.query.name) name = (request.query as any).name;
+      if (request.query.id) id = (request.query as any).id;
     }
 
     const showOngs = new ShowOngsService();
 
-    const ongs = await showOngs.execute({ city, uf, name });
+    const ongs = await showOngs.execute({ city, uf, name, id });
     // const ongs = await showOngs.execute({ user_id, city, uf, name });
 
     return response.json(classToClass(ongs));

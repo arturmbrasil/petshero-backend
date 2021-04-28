@@ -7,6 +7,7 @@ interface Request {
   city?: string | null;
   uf?: string | null;
   name?: string | null;
+  id?: string | null;
 }
 
 class ShowOngsService {
@@ -15,6 +16,7 @@ class ShowOngsService {
     city = null,
     uf = null,
     name = null,
+    id = null,
   }: Request): Promise<User[]> {
     const usersRepository = getRepository(User);
 
@@ -47,6 +49,12 @@ class ShowOngsService {
         .andWhere(`users.name ILIKE :name`, { name: `%${name}%` })
         .orderBy(`users.updated_at`, `DESC`)
         .getMany();
+    } else if (id) {
+      ongs = await usersRepository.find({
+        relations: ['address'],
+        where: { is_ong: true, id },
+        order: { updated_at: 'DESC' },
+      });
     } else {
       ongs = await usersRepository.find({
         relations: ['address'],
