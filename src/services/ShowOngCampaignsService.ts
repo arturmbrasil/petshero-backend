@@ -9,6 +9,7 @@ interface Request {
   ong_name?: string | null;
   animal_name?: string | null;
   title?: string | null;
+  activated?: string | null;
 }
 
 class ShowOngCampaignsService {
@@ -19,6 +20,7 @@ class ShowOngCampaignsService {
     ong_name,
     animal_name,
     title,
+    activated,
   }: Request): Promise<Campaign[]> {
     const campaignRepository = getRepository(Campaign);
 
@@ -31,14 +33,28 @@ class ShowOngCampaignsService {
         order: { updated_at: 'DESC' },
       });
     } else if (ong_id) {
-      campaigns = await campaignRepository.find({
-        where: { ong_id },
-        relations: ['ong', 'ongAnimal'],
-        order: { updated_at: 'DESC' },
-      });
+      if (activated) {
+        campaigns = await campaignRepository.find({
+          where: { ong_id, activated },
+          relations: ['ong', 'ongAnimal'],
+          order: { updated_at: 'DESC' },
+        });
+      } else {
+        campaigns = await campaignRepository.find({
+          where: { ong_id },
+          relations: ['ong', 'ongAnimal'],
+          order: { updated_at: 'DESC' },
+        });
+      }
     } else if (animal_id) {
       campaigns = await campaignRepository.find({
         where: { animal_id },
+        relations: ['ong', 'ongAnimal'],
+        order: { updated_at: 'DESC' },
+      });
+    } else if (activated) {
+      campaigns = await campaignRepository.find({
+        where: { activated },
         relations: ['ong', 'ongAnimal'],
         order: { updated_at: 'DESC' },
       });

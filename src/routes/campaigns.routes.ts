@@ -116,6 +116,7 @@ campaignsRouter.get('/', async (request, response) => {
     let ong_name = '';
     let animal_name = '';
     let title = '';
+    let activated = '';
 
     if (request.query) {
       if (request.query.id) id = (request.query as any).id;
@@ -125,6 +126,7 @@ campaignsRouter.get('/', async (request, response) => {
       if (request.query.animal_name)
         animal_name = (request.query as any).animal_name;
       if (request.query.title) title = (request.query as any).title;
+      if (request.query.activated) activated = (request.query as any).activated;
     }
 
     const showCampaigns = new ShowOngCampaignsService();
@@ -136,6 +138,7 @@ campaignsRouter.get('/', async (request, response) => {
       ong_name,
       animal_name,
       title,
+      activated,
     });
 
     return response.json(classToClass(campaigns));
