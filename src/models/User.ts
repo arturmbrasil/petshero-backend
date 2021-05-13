@@ -38,6 +38,9 @@ class User {
   whatsapp: string;
 
   @Column()
+  pix: string;
+
+  @Column()
   avatar: string;
 
   @Column()

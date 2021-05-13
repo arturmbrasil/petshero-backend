@@ -8,6 +8,7 @@ interface Request {
   email: string;
   password: string;
   whatsapp: string;
+  pix: string;
   is_ong: boolean;
 }
 
@@ -17,6 +18,7 @@ class CreateUserService {
     email,
     password,
     whatsapp,
+    pix,
     is_ong,
   }: Request): Promise<User> {
     const usersRepository = getRepository(User);
@@ -36,6 +38,7 @@ class CreateUserService {
       email,
       password: hashedPassword,
       whatsapp,
+      pix,
       is_ong,
       avatar: 'default.jpeg',
     });

@@ -10,6 +10,7 @@ interface Request {
   old_password?: string;
   password?: string;
   whatsapp: string;
+  pix?: string;
 }
 
 class UpdateProfileService {
@@ -20,6 +21,7 @@ class UpdateProfileService {
     old_password,
     password,
     whatsapp,
+    pix,
   }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
@@ -43,6 +45,10 @@ class UpdateProfileService {
     checkUser.name = name;
     checkUser.email = email;
     checkUser.whatsapp = whatsapp;
+
+    if (pix) {
+      checkUser.pix = pix;
+    }
 
     if (password && !old_password) {
       throw new Error(

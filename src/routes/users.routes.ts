@@ -16,7 +16,7 @@ const usersRouter = Router();
 
 usersRouter.post('/', async (request, response) => {
   try {
-    const { name, email, password, whatsapp, is_ong } = request.body;
+    const { name, email, password, whatsapp, pix, is_ong } = request.body;
 
     const createUser = new CreateUserService();
 
@@ -25,6 +25,7 @@ usersRouter.post('/', async (request, response) => {
       email,
       password,
       whatsapp,
+      pix,
       is_ong,
     });
 

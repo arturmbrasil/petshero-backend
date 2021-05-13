@@ -13,7 +13,7 @@ profileRouter.use(ensureAuthenticated);
 profileRouter.put('/', async (request, response) => {
   try {
     const user_id = request.user.id;
-    const { name, email, old_password, password, whatsapp } = request.body;
+    const { name, email, old_password, password, whatsapp, pix } = request.body;
 
     const updateProfile = new UpdateProfileService();
 
@@ -24,6 +24,7 @@ profileRouter.put('/', async (request, response) => {
       old_password,
       password,
       whatsapp,
+      pix,
     });
 
     return response.json(classToClass(user));
